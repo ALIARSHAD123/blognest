@@ -64,7 +64,7 @@ export const getAllBlogs = async (req, res) => {
   }
 };
 
-// ✅ Get single blog
+// ✅ Get single blog .
 export const getBlogById = async (req, res) => {
   try {
     const { blogId } = req.params; // ✅ corrected: req.params, not req.parse
