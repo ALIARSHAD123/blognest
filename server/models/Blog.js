@@ -6,6 +6,7 @@ const blogSchema = new mongoose.Schema(
     subTitle: { type: String },
     description: { type: String, required: true },
     category: { type: String, required: true },
+    image: { type: String },
     isPublished: { type: Boolean, required: true },
   },
   { timestamps: true }

@@ -48,16 +48,3 @@ Thumbs.db
 .eslintcache
 
 
-# Ignore node modules
-client/node_modules
-server/node_modules
-node_modules
-
-# Ignore build files
-client/.next
-client/build
-server/build
-
-# Ignore environment files
-.env
-.env.local
