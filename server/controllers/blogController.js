@@ -2,8 +2,8 @@ import fs from "fs";
 import imagekit from "../configs/imagekit.js";
 import Blog from "../models/Blog.js";
 import Comment from "../models/Comment.js";
+import main from "../configs/gemini.js";
 
-// ✅ Add a new blog
 export const addBlog = async (req, res) => {
   try {
     const { title, subTitle, description, category, isPublished } = JSON.parse(
@@ -26,7 +26,6 @@ export const addBlog = async (req, res) => {
       folder: "/blogs",
     });
 
-    // ✅ Generate optimized image URL (optional)
     const optimizedImageUrl = imagekit.url({
       path: response.filePath,
       transformation: [
@@ -38,13 +37,12 @@ export const addBlog = async (req, res) => {
 
     const image = optimizedImageUrl;
 
-    // ✅ Save blog in MongoDB
     await Blog.create({
       title,
       subTitle,
       description,
       category,
-      image, //optimizedImageUrl, // store the optimized URL
+      image,
       isPublished,
     });
     res.json({ success: true, message: "Blog Added Successfully" });
@@ -90,7 +88,6 @@ export const deleteBlogById = async (req, res) => {
   }
 };
 
-// ✅ Toggle publish status
 export const togglePublish = async (req, res) => {
   try {
     const { id } = req.body;
@@ -121,6 +118,18 @@ export const getBlogsComments = async (req, res) => {
       isApproved: true,
     }).sort({ createdAt: -1 });
     res.json({ success: true, comments });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const generateContent = async (req, res) => {
+  try {
+    const { prompt } = req.body;
+    const content = await main(
+      prompt + "generate a blog content for this topic in simple text format"
+    );
+    res.json({ success: true, content });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }

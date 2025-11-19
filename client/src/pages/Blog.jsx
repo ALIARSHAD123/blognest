@@ -17,9 +17,6 @@ const Blog = () => {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
 
-  // -------------------------
-  // Fetch blog data
-  // -------------------------
   const fetchBlogData = async () => {
     try {
       const { data } = await axios.get(`/api/blog/${id}`);
@@ -30,9 +27,6 @@ const Blog = () => {
     }
   };
 
-  // -------------------------
-  // Fetch comments
-  // -------------------------
   const fetchComments = async () => {
     try {
       const { data } = await axios.post("/api/blog/comments", { blogId: id });
@@ -43,9 +37,6 @@ const Blog = () => {
     }
   };
 
-  // -------------------------
-  // Add comment
-  // -------------------------
   const addComment = async (e) => {
     e.preventDefault();
     try {
@@ -58,7 +49,7 @@ const Blog = () => {
         toast.success(data.message);
         setName("");
         setContent("");
-        fetchComments(); // refresh comments immediately
+        fetchComments();
       } else {
         toast.error(data.message);
       }

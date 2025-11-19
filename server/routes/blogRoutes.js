@@ -7,6 +7,7 @@ import {
   togglePublish,
   addComment,
   getBlogsComments,
+  generateContent,
 } from "../controllers/blogController.js";
 import upload from "../middleware/multer.js";
 import auth from "../middleware/auth.js";
@@ -20,5 +21,6 @@ blogRouter.post("/delete", auth, deleteBlogById);
 blogRouter.post("/publish-toggle", auth, togglePublish);
 blogRouter.post("/add-comment", addComment);
 blogRouter.post("/comments", getBlogsComments);
+blogRouter.post("/generate", auth, generateContent);
 
-export default blogRouter; // ✅ important!
+export default blogRouter;
