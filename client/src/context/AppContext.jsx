@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-// import { useAppContext } from "../context/AppContext";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -29,7 +28,7 @@ export const AppProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     if (token) {
       setToken(token);
-      axios.defaults.headers.common["Authorization"] = `${token}`;
+      axios.defaults.headers.common["Authorization"] = token;
     }
   }, []);
 
@@ -44,7 +43,11 @@ export const AppProvider = ({ children }) => {
     setInput,
   };
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={value}>
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 export const useAppContext = () => useContext(AppContext);
